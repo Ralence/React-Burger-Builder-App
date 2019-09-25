@@ -7,15 +7,15 @@ import ToggleBtn from '../../UI/ToggleBtn/ToggleBtn';
 
 const toolbar = (props) => (
     <header className={classes.Toolbar}>
-        <div style={{color: "white"}}>
+        <div style={{ color: "white" }}>
             <ToggleBtn toggle={props.toggle} />
-              <p className={classes.DesktopOnly} >MENU</p>
+            <p className={classes.DesktopOnly} >MENU</p>
         </div>
         <div className={classes.Logo}>
             <Logo />
         </div>
         <nav className={classes.DesktopOnly}>
-            <NavigationItems />
+            <NavigationItems isAuthenticated={props.isAuthenticated} />
         </nav>
     </header>
 );

@@ -4,7 +4,7 @@ import Aux from '../../hoc/Auxilliary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
-import OrderSumarry from '../../components/Burger/OrderSummary/OrderSummary';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from '../../axios-orders';
@@ -35,7 +35,12 @@ class BurgerBuilder extends React.Component {
     }
 
     purchaseHandler = () => {
-        this.setState({ purchasing: true })
+        if (this.props.isAuthenticated) {
+            this.setState({ purchasing: true })
+        } else {
+            this.props.history.push('/auth');
+        }
+
     }
 
     purchaseCancelHandler = () => {
@@ -71,12 +76,13 @@ class BurgerBuilder extends React.Component {
                         price={this.props.price}
                         purchasable={this.updatePurchaseState(this.props.ings)}
                         ordered={this.purchaseHandler}
+                        isAuthenticated={this.props.isAuthenticated}
                     />
                 </React.Fragment>
             );
 
             orderSummary = (
-                <OrderSumarry
+                <OrderSummary
                     ingredients={this.props.ings}
                     purchaseCancelled={this.purchaseCancelHandler}
                     purchaseContinued={this.purchaseContinueHandler}
@@ -100,7 +106,8 @@ const mapStateToProps = (state) => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuthenticated: state.auth.token !== null
     }
 }
 

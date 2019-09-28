@@ -4,5 +4,9 @@
     "editor.formatOnSave": true,
     "prettier.singleQuote": true,
     "prettier.endOfLine": "lf",
-    "prettier.jsxBracketSameLine": true
+    "prettier.jsxBracketSameLine": true,
+    "cSpell.words": [
+        "SIGNIN",
+        "ings"
+    ]
 }
